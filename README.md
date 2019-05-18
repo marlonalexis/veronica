@@ -60,7 +60,7 @@ $ psql -U postgres veronica-db < veronica_data.sql
 encrypt.key = 8qxBjzCdQkwdpu
 ```
 
-5. Para modificar los atributos de conexión a la base de datos, dirigirse al archivo **/veronica/veronica-web/src/main/resources/application.properties**.
+5. Para modificar los atributos de conexión a la base de datos, dirigirse al archivo **/veronica/veronica-app/src/main/resources/application.properties**.
 
 ### Instalación de dependencias
 1. `Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto, ejecutar los comandos listados a continuación.
@@ -88,13 +88,13 @@ $ mvn clean install
 
 `Desarrollo`
 ```bash
-$ cd /veronica/veronica-web
+$ cd /veronica/veronica-app
 $ mvn spring-boot:run -Pdevelopment
 ```
 
 `Producción`
 ```bash
-$ cd /veronica/veronica-web
+$ cd /veronica/veronica-app
 $ mvn spring-boot:run -Pproduction
 ```
 
