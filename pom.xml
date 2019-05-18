@@ -30,10 +30,10 @@
 	<modules>
 		<module>veronica-model</module>
 		<module>veronica-common</module>
-		<module>veronica-web</module>
+		<module>veronica-app</module>
 		<module>veronica-soap</module>
 		<module>veronica-dto</module>
-		<module>veronica-bo</module>
+		<module>veronica-service</module>
 		<module>veronica-ride</module>
 		<module>veronica-mapper</module>
 		<module>veronica-persistence</module>
