@@ -13,7 +13,6 @@ Todo comprobante electrónico gestionado a través de `Veronica` manejará un ci
 
 Cotenidos
 =================
-- [Documentos soportados](#documentos-soportados)
 - [Software requerido](#software-requerido)
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
@@ -25,16 +24,6 @@ Cotenidos
 	- [Postman](#postman)
 - [Bitácora](#bitácora)
 - [Autores](#autores)
-
-## Documentos soportados
-
-| Nombre       |
-|-----------------------------|
-| ✅ Facturas                  |
-| ✅ Notas de crédito          |
-| ✅ Notas de débito           |
-| ✅ Guías de remisión         |
-| ✅ Comprobantes de retención |
 
 ## Software requerido
 - JDK 1.8.0_121
