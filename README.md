@@ -113,7 +113,8 @@ http://localhost:8080/veronica/swagger-ui.html
 - V4: 2018-11-10, Generación de RIDEs.
 - V5: 2018-11-19, Integración con Postman.
 - V6: 2019-01-09, Integración con PostgreSQL.
-- V7: 2019-02-21, Retenciones y Guías de remisión.
+- V7: 2019-02-21, Soporte para Retenciones y Guías de remisión.
+- V8: 2019-02-21, Soporte para Notas de débito.
 
 ## Autores
 
