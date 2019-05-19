@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import com.rolandopalermo.facturacion.ec.common.converter.JaxbConverter;
 import com.rolandopalermo.facturacion.ec.common.exception.ResourceNotFoundException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
+import com.rolandopalermo.facturacion.ec.common.util.Constants;
 import com.rolandopalermo.facturacion.ec.common.util.DateUtils;
 import com.rolandopalermo.facturacion.ec.common.util.SignerUtils;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
@@ -50,6 +51,7 @@ import com.rolandopalermo.facturacion.ec.soap.client.AutorizacionComprobanteProx
 import com.rolandopalermo.facturacion.ec.soap.client.EnvioComprobantesProxy;
 
 import autorizacion.ws.sri.gob.ec.RespuestaComprobante;
+import recepcion.ws.sri.gob.ec.RespuestaSolicitud;
 
 @Service
 public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL extends Comprobante, DOMAIN extends BaseSRIEntity>
@@ -80,6 +82,8 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 	private Mapper<DTO, MODEL> mapper;
 	
 	protected JaxbConverter jaxbConverter;
+	
+	
 
 	private static final Logger logger = LogManager.getLogger(GenericSRIServiceImpl.class);
 
@@ -115,20 +119,27 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 	}
 
 	@Override
-	public RespuestaSolicitudDTO post(String accessKey) {
+	public RespuestaSolicitudDTO post(String accessKey) throws VeronicaException {
 		List<DOMAIN> comprobantes = repository.findByAccessKeyAndIsDeleted(accessKey, false);
 		if (comprobantes == null || comprobantes.isEmpty()) {
 			throw new ResourceNotFoundException(
 					String.format("No se pudo encontrar el comprobante con clave de acceso %s", accessKey));
 		}
 		DOMAIN domainObject = comprobantes.get(0);
+		if(logger.isDebugEnabled()) {
+			logger.debug(String.format("%s\n%s\n%s", Constants.XNML_DEBUG_DELIMETER, domainObject.getXmlContent(), Constants.XNML_DEBUG_DELIMETER));
+		}
 		byte[] xmlContent = domainObject.getXmlContent().getBytes();
 		if (xmlContent == null) {
 			throw new ResourceNotFoundException(
 					String.format("El contenido del comprobante con clave de acceso %s es nulo", accessKey));
 		}
 		RespuestaSolicitudDTO respuestaSolicitudDTO = postReceipt(xmlContent);
-		if (respuestaSolicitudDTO.getEstado().compareTo(SRI_REJECTED) == 0) {
+		if (respuestaSolicitudDTO == null) {
+			throw new VeronicaException(
+					String.format("No se pudo emitir el comprobante con clave de acceso %s", accessKey));
+		}
+		if (respuestaSolicitudDTO.getEstado() == null || respuestaSolicitudDTO.getEstado().compareTo(SRI_REJECTED) == 0) {
 			domainObject.setInternalStatusId(REJECTED);
 		} else {
 			domainObject.setInternalStatusId(POSTED);
@@ -224,9 +235,13 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 	private RespuestaSolicitudDTO postReceipt(byte[] xmlContent) {
 		EnvioComprobantesProxy proxy;
 		RespuestaSolicitudDTO respuestaSolicitudDTO = null;
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("Invocando al WSDL: %s", wsdlRecepcion));
+		}
 		try {
 			proxy = new EnvioComprobantesProxy(wsdlRecepcion);
-			respuestaSolicitudDTO = respuestaSolicitudMapper.convert(proxy.enviarComprobante(xmlContent));
+			RespuestaSolicitud respuestaSolicitud = proxy.enviarComprobante(xmlContent);
+			respuestaSolicitudDTO = respuestaSolicitudMapper.convert(respuestaSolicitud);
 		} catch (MalformedURLException e) {
 			logger.error("enviarComprobante", e);
 			throw new ResourceNotFoundException(

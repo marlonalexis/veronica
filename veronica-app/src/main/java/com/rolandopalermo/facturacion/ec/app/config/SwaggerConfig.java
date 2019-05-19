@@ -18,7 +18,7 @@ public class SwaggerConfig {
 	public Docket v1APIConfiguration() {
 		return new Docket(
 				DocumentationType.SWAGGER_2).groupName("v1").select()
-				.apis(RequestHandlerSelectors.basePackage("com.rolandopalermo.facturacion.ec.web.api.v1_0"))
+				.apis(RequestHandlerSelectors.basePackage("com.rolandopalermo.facturacion.ec.app.api.v1_0"))
 				.paths(PathSelectors.regex("/api/v1.0.*")).build().apiInfo(new ApiInfoBuilder().version("1.0")
 						.title("Veronica API 1.0").description("Documentation Veronica API v1.0").build());
 	}

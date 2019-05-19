@@ -64,11 +64,15 @@ public class InvoiceController {
 	@PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> postInvoice(
 			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
-		VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-		RespuestaSolicitudDTO respuestaSolicitudDTO = service.post(claveAcceso);
-		response.setSuccess(true);
-		response.setResult(respuestaSolicitudDTO);
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		try {
+			VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+			RespuestaSolicitudDTO respuestaSolicitudDTO = service.post(claveAcceso);
+			response.setSuccess(true);
+			response.setResult(respuestaSolicitudDTO);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (VeronicaException e) {
+			throw new InternalServerException(e.getMessage());
+		}
 	}
 
 	@ApiOperation(value = "Autoriza una factura electrónica y actualiza su estado en base de datos")

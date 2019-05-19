@@ -21,5 +21,7 @@ public class Constants {
 	
 	public static final String SRI_APPLIED = "AUTORIZADO";
 	public static final String SRI_INVALID = "NO AUTORIZADO";
+	
+	public static final String XNML_DEBUG_DELIMETER = "--------------------------------[ XML ]---------------------------------";
 
 }

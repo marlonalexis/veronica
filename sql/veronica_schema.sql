@@ -716,3 +716,39 @@ ALTER SEQUENCE public.supplier_supplier_id_seq OWNED BY public.supplier.supplier
 --
 -- PostgreSQL database dump complete
 --
+
+CREATE TABLE public.debit_memo (
+    debit_memo_id integer NOT NULL,
+    access_key character varying(50) NOT NULL,
+    sri_version character varying(5) NOT NULL,
+    xml_content xml,
+    supplier_id character varying(20) NOT NULL,
+    customer_id character varying(20) NOT NULL,
+    issue_date date,
+    internal_status_id integer,
+    debit_memo_number character varying(20),
+    xml_authorization xml,
+    is_deleted boolean DEFAULT false,
+    authorization_date timestamp without time zone
+);
+
+ALTER TABLE public.debit_memo OWNER TO postgres;
+
+CREATE SEQUENCE public.debit_memo_debit_memo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+ALTER TABLE public.debit_memo_debit_memo_id_seq OWNER TO postgres;
+
+ALTER SEQUENCE public.debit_memo_debit_memo_id_seq OWNED BY public.debit_memo.debit_memo_id;
+
+CREATE SEQUENCE public.debit_memo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;

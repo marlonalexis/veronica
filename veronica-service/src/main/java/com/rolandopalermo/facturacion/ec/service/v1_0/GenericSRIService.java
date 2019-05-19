@@ -14,7 +14,7 @@ public interface GenericSRIService<DTO extends ComprobanteDTO, MODEL extends Com
 
 	public ComprobanteIdDTO create(DTO domainObject) throws VeronicaException, ResourceNotFoundException;
 
-	public RespuestaSolicitudDTO post(String accessKey);
+	public RespuestaSolicitudDTO post(String accessKey) throws VeronicaException;
 
 	public RespuestaComprobanteDTO apply(String accessKey) throws ResourceNotFoundException, VeronicaException;
 
