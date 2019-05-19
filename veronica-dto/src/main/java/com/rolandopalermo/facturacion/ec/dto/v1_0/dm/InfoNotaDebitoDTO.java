@@ -26,8 +26,9 @@ public class InfoNotaDebitoDTO extends InfoComprobanteDTO {
 	private String codDocModificado;
 	private String numDocModificado;
 	private String fechaEmisionDocSustento;
-	private BigDecimal totalSinImpuestos;
 	private String rise;
+	private BigDecimal totalSinImpuestos;
+	protected BigDecimal valorTotal;
 	@NotNull
     @Valid
     @Size(min = 1)

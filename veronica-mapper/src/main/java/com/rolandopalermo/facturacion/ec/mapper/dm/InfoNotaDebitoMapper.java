@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ImpuestoDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.PagoDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.dm.InfoNotaDebitoDTO;
 import com.rolandopalermo.facturacion.ec.mapper.Mapper;
-import com.rolandopalermo.facturacion.ec.modelo.Pago;
 import com.rolandopalermo.facturacion.ec.modelo.notadebito.Impuesto;
 import com.rolandopalermo.facturacion.ec.modelo.notadebito.InfoNotaDebito;
 
@@ -16,7 +14,6 @@ import com.rolandopalermo.facturacion.ec.modelo.notadebito.InfoNotaDebito;
 public class InfoNotaDebitoMapper implements Mapper<InfoNotaDebitoDTO, InfoNotaDebito> {
 
     private Mapper<ImpuestoDTO, Impuesto> impuestoNotaDebitoMapper;
-    private Mapper<PagoDTO, Pago> pagoMapper;
 
     @Override
     public InfoNotaDebito convert(final InfoNotaDebitoDTO infoNotaDebitoDTO) {
@@ -34,7 +31,7 @@ public class InfoNotaDebitoMapper implements Mapper<InfoNotaDebitoDTO, InfoNotaD
         infoNotaDebito.setNumDocModificado(infoNotaDebitoDTO.getNumDocModificado());
         infoNotaDebito.setFechaEmisionDocSustento(infoNotaDebitoDTO.getFechaEmisionDocSustento());
         infoNotaDebito.setImpuesto(getTotalImpuestoMapper().convertAll(infoNotaDebitoDTO.getImpuesto()));
-        infoNotaDebito.setPago(getPagoMapper().convertAll(infoNotaDebitoDTO.getPagos()));
+        infoNotaDebito.setValorTotal(infoNotaDebitoDTO.getValorTotal());
         return infoNotaDebito;
     }
 
@@ -48,16 +45,4 @@ public class InfoNotaDebitoMapper implements Mapper<InfoNotaDebitoDTO, InfoNotaD
         this.impuestoNotaDebitoMapper = impuestoNotaDebitoMapper;
     }
 
-	public Mapper<PagoDTO, Pago> getPagoMapper() {
-		return pagoMapper;
-	}
-
-	@Autowired
-    @Qualifier("pagoMapper")
-	public void setPagoMapper(Mapper<PagoDTO, Pago> pagoMapper) {
-		this.pagoMapper = pagoMapper;
-	}
-    
-    
-    
 }
