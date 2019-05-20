@@ -10,6 +10,8 @@
 	<artifactId>veronica-app</artifactId>
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
+		<docker.image.prefix>einvoicing</docker.image.prefix>
+		<docker.image.name>veronica</docker.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,23 +60,36 @@
 			<version>2.7.0</version>
 			<scope>compile</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-context</artifactId> -->
-<!-- 			<exclusions> -->
-<!-- 				Exclude Commons Logging in favor of SLF4j -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>commons-logging</groupId> -->
-<!-- 					<artifactId>commons-logging</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 		</dependency> -->
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.30.0</version>
+				<configuration>
+					<dockerHost>unix:///var/run/docker.sock</dockerHost>
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${docker.image.name}</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
