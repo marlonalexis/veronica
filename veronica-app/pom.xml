@@ -124,14 +124,14 @@
 									<port>5432:5432</port>
 								</ports>
 								<env>
-									<POSTGRES_DB>veronica-db</POSTGRES_DB>
 									<POSTGRES_USER>postgres</POSTGRES_USER>
 									<POSTGRES_PASSWORD>123456</POSTGRES_PASSWORD>
+									<POSTGRES_DB>veronicadb</POSTGRES_DB>
 								</env>
 								<wait>
 									<time>10000</time>
 										<exec>
-											<postStart><![CDATA[psql -U postgres veronica-db < /tmp/veronica_schema.sql]]></postStart>
+											<postStart>psql -U postgres -f /tmp/veronica_schema.sql</postStart>
 										</exec>
 								</wait>
 							</run>
