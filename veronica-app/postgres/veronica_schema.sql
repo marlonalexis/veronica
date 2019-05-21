@@ -16,14 +16,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: 
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
--- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
@@ -100,6 +100,122 @@ CREATE SEQUENCE public.consignne_seq
 
 
 ALTER TABLE public.consignne_seq OWNER TO postgres;
+
+--
+-- Name: credit_memo; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.credit_memo (
+    credit_memo_id integer NOT NULL,
+    access_key character varying(50) NOT NULL,
+    sri_version character varying(5) NOT NULL,
+    xml_content xml,
+    supplier_id character varying(20) NOT NULL,
+    customer_id character varying(20) NOT NULL,
+    issue_date date,
+    internal_status_id integer,
+    credit_memo_number character varying(20),
+    xml_authorization xml,
+    is_deleted boolean DEFAULT false,
+    authorization_date timestamp without time zone
+);
+
+
+ALTER TABLE public.credit_memo OWNER TO postgres;
+
+--
+-- Name: credit_memo_credit_memo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.credit_memo_credit_memo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.credit_memo_credit_memo_id_seq OWNER TO postgres;
+
+--
+-- Name: credit_memo_credit_memo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.credit_memo_credit_memo_id_seq OWNED BY public.credit_memo.credit_memo_id;
+
+
+--
+-- Name: credit_memo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.credit_memo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.credit_memo_seq OWNER TO postgres;
+
+--
+-- Name: debit_memo; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.debit_memo (
+    debit_memo_id integer NOT NULL,
+    access_key character varying(50) NOT NULL,
+    sri_version character varying(5) NOT NULL,
+    xml_content xml,
+    supplier_id character varying(20) NOT NULL,
+    customer_id character varying(20) NOT NULL,
+    issue_date date,
+    internal_status_id integer,
+    debit_memo_number character varying(20),
+    xml_authorization xml,
+    is_deleted boolean DEFAULT false,
+    authorization_date timestamp without time zone
+);
+
+
+ALTER TABLE public.debit_memo OWNER TO postgres;
+
+--
+-- Name: debit_memo_debit_memo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.debit_memo_debit_memo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.debit_memo_debit_memo_id_seq OWNER TO postgres;
+
+--
+-- Name: debit_memo_debit_memo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.debit_memo_debit_memo_id_seq OWNED BY public.debit_memo.debit_memo_id;
+
+
+--
+-- Name: debit_memo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.debit_memo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.debit_memo_seq OWNER TO postgres;
 
 --
 -- Name: digital_cert; Type: TABLE; Schema: public; Owner: postgres
@@ -281,41 +397,6 @@ ALTER SEQUENCE public.payment_method_payment_method_id_seq OWNED BY public.payme
 
 
 --
--- Name: tax_type; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.tax_type (
-    tax_type_id integer NOT NULL,
-    code character varying(3) NOT NULL,
-    description character varying(80) NOT NULL
-);
-
-
-ALTER TABLE public.tax_type OWNER TO postgres;
-
---
--- Name: tax_type_tax_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.tax_type_tax_type_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.tax_type_tax_type_id_seq OWNER TO postgres;
-
---
--- Name: tax_type_tax_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.tax_type_tax_type_id_seq OWNED BY public.tax_type.tax_type_id;
-
-
---
 -- Name: receipt_type; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -348,6 +429,93 @@ ALTER TABLE public.receipt_type_receipt_type_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.receipt_type_receipt_type_id_seq OWNED BY public.receipt_type.receipt_type_id;
+
+
+--
+-- Name: supplier; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.supplier (
+    supplier_id integer NOT NULL,
+    id_number character varying(20) NOT NULL,
+    id_type character varying(10) NOT NULL,
+    business_name character varying(300) NOT NULL,
+    logo bytea,
+    is_deleted boolean DEFAULT false
+);
+
+
+ALTER TABLE public.supplier OWNER TO postgres;
+
+--
+-- Name: supplier_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.supplier_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_seq OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.supplier_supplier_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.supplier_supplier_id_seq OWNER TO postgres;
+
+--
+-- Name: supplier_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.supplier_supplier_id_seq OWNED BY public.supplier.supplier_id;
+
+
+--
+-- Name: tax_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tax_type (
+    tax_type_id integer NOT NULL,
+    code character varying(3) NOT NULL,
+    description character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.tax_type OWNER TO postgres;
+
+--
+-- Name: tax_type_tax_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tax_type_tax_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tax_type_tax_type_id_seq OWNER TO postgres;
+
+--
+-- Name: tax_type_tax_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tax_type_tax_type_id_seq OWNED BY public.tax_type.tax_type_id;
 
 
 --
@@ -414,97 +582,24 @@ ALTER TABLE ONLY public.payment_method ALTER COLUMN payment_method_id SET DEFAUL
 
 
 --
--- Name: tax_type tax_type_id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.tax_type ALTER COLUMN tax_type_id SET DEFAULT nextval('public.tax_type_tax_type_id_seq'::regclass);
-
-
---
 -- Name: receipt_type receipt_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.receipt_type ALTER COLUMN receipt_type_id SET DEFAULT nextval('public.receipt_type_receipt_type_id_seq'::regclass);
 
 
+--
+-- Name: supplier supplier_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
 ALTER TABLE ONLY public.supplier ALTER COLUMN supplier_id SET DEFAULT nextval('public.supplier_supplier_id_seq'::regclass);
---
--- Name: bol_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.bol_seq', 1, true);
 
 
 --
--- Name: consignne_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: tax_type tax_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.consignne_seq', 1, true);
-
-
---
--- Name: digital_cert_digital_cert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.digital_cert_digital_cert_id_seq', 1, false);
-
-
---
--- Name: digital_cert_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.digital_cert_seq', 1, true);
-
-
---
--- Name: internal_status_internal_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.internal_status_internal_status_id_seq', 1, false);
-
-
---
--- Name: invoice_invoice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.invoice_invoice_id_seq', 1, false);
-
-
---
--- Name: invoice_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.invoice_seq', 1, true);
-
-
---
--- Name: payment_method_payment_method_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.payment_method_payment_method_id_seq', 1, true);
-
-
---
--- Name: tax_type_tax_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.tax_type_tax_type_id_seq', 1, true);
-
-
---
--- Name: receipt_type_receipt_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.receipt_type_receipt_type_id_seq', 1, true);
-
-
-SELECT pg_catalog.setval('public.supplier_supplier_id_seq', 1, true);
-
---
--- Name: withholding_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.withholding_seq', 1, true);
+ALTER TABLE ONLY public.tax_type ALTER COLUMN tax_type_id SET DEFAULT nextval('public.tax_type_tax_type_id_seq'::regclass);
 
 
 --
@@ -580,19 +675,19 @@ ALTER TABLE ONLY public.payment_method
 
 
 --
--- Name: tax_type tax_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.tax_type
-    ADD CONSTRAINT tax_type_pkey PRIMARY KEY (tax_type_id);
-
-
---
 -- Name: receipt_type receipt_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.receipt_type
     ADD CONSTRAINT receipt_type_pkey PRIMARY KEY (receipt_type_id);
+
+
+--
+-- Name: tax_type tax_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tax_type
+    ADD CONSTRAINT tax_type_pkey PRIMARY KEY (tax_type_id);
 
 
 --
@@ -642,116 +737,10 @@ ALTER TABLE ONLY public.invoice
 ALTER TABLE ONLY public.withholding
     ADD CONSTRAINT withholding_internal_status_id_fkey FOREIGN KEY (internal_status_id) REFERENCES public.internal_status(internal_status_id);
 
-CREATE TABLE public.credit_memo (
-    credit_memo_id integer NOT NULL,
-    access_key character varying(50) NOT NULL,
-    sri_version character varying(5) NOT NULL,
-    xml_content xml,
-    supplier_id character varying(20) NOT NULL,
-    customer_id character varying(20) NOT NULL,
-    issue_date date,
-    internal_status_id integer,
-    credit_memo_number character varying(20),
-    xml_authorization xml,
-    is_deleted boolean DEFAULT false,
-    authorization_date timestamp without time zone
-);
 
-ALTER TABLE public.credit_memo OWNER TO postgres;
-
-CREATE SEQUENCE public.credit_memo_credit_memo_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER TABLE public.credit_memo_credit_memo_id_seq OWNER TO postgres;
-
-ALTER SEQUENCE public.credit_memo_credit_memo_id_seq OWNED BY public.credit_memo.credit_memo_id;
-
-CREATE SEQUENCE public.credit_memo_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.credit_memo_seq OWNER TO postgres;
-
-CREATE TABLE public.supplier (
-    supplier_id integer NOT NULL,
-    id_number character varying(20) NOT NULL,
-    id_type character varying(10) NOT NULL,
-    business_name character varying(300) NOT NULL,
-    logo bytea,
-    is_deleted boolean DEFAULT false
-);
-
-
-ALTER TABLE public.supplier OWNER TO postgres;
-
---
--- Name: supplier_supplier_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.supplier_supplier_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.supplier_supplier_id_seq OWNER TO postgres;
-
---
--- Name: supplier_supplier_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.supplier_supplier_id_seq OWNED BY public.supplier.supplier_id;
 --
 -- PostgreSQL database dump complete
 --
-
-CREATE TABLE public.debit_memo (
-    debit_memo_id integer NOT NULL,
-    access_key character varying(50) NOT NULL,
-    sri_version character varying(5) NOT NULL,
-    xml_content xml,
-    supplier_id character varying(20) NOT NULL,
-    customer_id character varying(20) NOT NULL,
-    issue_date date,
-    internal_status_id integer,
-    debit_memo_number character varying(20),
-    xml_authorization xml,
-    is_deleted boolean DEFAULT false,
-    authorization_date timestamp without time zone
-);
-
-ALTER TABLE public.debit_memo OWNER TO postgres;
-
-CREATE SEQUENCE public.debit_memo_debit_memo_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-ALTER TABLE public.debit_memo_debit_memo_id_seq OWNER TO postgres;
-
-ALTER SEQUENCE public.debit_memo_debit_memo_id_seq OWNED BY public.debit_memo.debit_memo_id;
-
-CREATE SEQUENCE public.debit_memo_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
 INSERT INTO PUBLIC.internal_status (internal_status_id, description) VALUES 
 (1, 'CREATED'), 

@@ -113,14 +113,6 @@
 												<source>${project.basedir}/postgres/veronica_schema.sql</source>
 												<fileMode>777</fileMode>
 											</file>
-											<file>
-												<source>${project.basedir}/postgres/veronica_data.sql</source>
-												<fileMode>777</fileMode>
-											</file>
-<!-- 											<file> -->
-<!-- 												<source>${project.basedir}/postgres/veronica_db.sh</source> -->
-<!-- 												<fileMode>777</fileMode> -->
-<!-- 											</file> -->
 										</files>
 									</inline>
 									<targetDir>/tmp</targetDir>
