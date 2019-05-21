@@ -135,9 +135,9 @@
 								</env>
 								<wait>
 									<time>10000</time>
-									<exec>
-										<postStart>sh /tmp/veronica_db.sh</postStart>
-									</exec>
+<!-- 									<exec> -->
+<!-- 										<postStart>sh /tmp/veronica_db.sh</postStart> -->
+<!-- 									</exec> -->
 								</wait>
 							</run>
 						</image>
