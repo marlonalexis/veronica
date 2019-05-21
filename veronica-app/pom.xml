@@ -10,8 +10,6 @@
 	<artifactId>veronica-app</artifactId>
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
-		<docker.image.prefix>einvoicing</docker.image.prefix>
-		<docker.image.name>veronica</docker.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -70,15 +68,15 @@
 			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.30.0</version>
+				<version>${version.docker.maven.plugin}</version>
 				<configuration>
 					<dockerHost>unix:///var/run/docker.sock</dockerHost>
 					<verbose>true</verbose>
 					<images>
 						<image>
-							<name>${docker.image.prefix}/${docker.image.name}</name>
+							<name>${docker.name}</name>
 							<build>
-								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+								<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
@@ -87,11 +85,41 @@
 									<tag>${project.version}</tag>
 								</tags>
 							</build>
+							<run>
+								<ports>
+									<port>8080:8080</port>
+								</ports>
+							</run>
 						</image>
 					</images>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scripts>
+						<script>file:///${project.basedir}/src/main/scripts/BuildDockerfile.groovy</script>
+					</scripts>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-all</artifactId>
+						<version>2.4.8</version>
+						<scope>runtime</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
