@@ -101,7 +101,7 @@
 							<name>postgres</name>
 							<alias>postgresdb</alias>
 							<build>
-								<from>postgres:9.6</from>
+								<from>postgres:11.3</from>
 								<assembly>
 									<name>DB</name>
 									<inline>
