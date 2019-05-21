@@ -11,6 +11,8 @@
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
 		<version.docker.maven.plugin>0.30.0</version.docker.maven.plugin>
+		<docker.image.prefix>rolandopalermo</docker.image.prefix>
+		<docker.image.name>veronica</docker.image.name>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -75,7 +77,7 @@
 					<verbose>true</verbose>
 					<images>
 						<image>
-							<name>${docker.name}</name>
+							<name>${docker.image.prefix}/${docker.image.name}</name>
 							<build>
 								<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
 								<assembly>
