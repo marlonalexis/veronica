@@ -10,6 +10,7 @@
 	<artifactId>veronica-app</artifactId>
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
+		<version.docker.maven.plugin>0.30.0</version.docker.maven.plugin>
 	</properties>
 	<dependencies>
 		<dependency>
