@@ -107,7 +107,15 @@
 									<inline>
 										<files>
 											<file>
-												<source>${project.basedir}/postgres/veronica_db.sql</source>
+												<source>${project.basedir}/postgres/veronica_schema.sql</source>
+												<fileMode>777</fileMode>
+											</file>
+											<file>
+												<source>${project.basedir}/postgres/veronica_data.sql</source>
+												<fileMode>777</fileMode>
+											</file>
+											<file>
+												<source>${project.basedir}/postgres/veronica_db.sh</source>
 												<fileMode>777</fileMode>
 											</file>
 										</files>
@@ -128,7 +136,7 @@
 								<wait>
 									<time>10000</time>
 									<exec>
-										<postStart>psql -U postgres -f /tmp/veronica_db.sql</postStart>
+										<postStart>sh /tmp/veronica_db.sh</postStart>
 									</exec>
 								</wait>
 							</run>
