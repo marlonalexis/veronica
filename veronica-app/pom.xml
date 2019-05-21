@@ -92,6 +92,9 @@
 								<ports>
 									<port>8080:8080</port>
 								</ports>
+								<links>
+									<link>postgresdb:postgresdb</link>
+								</links>
 								<dependsOn>
 									<container>postgres</container>
 								</dependsOn>
