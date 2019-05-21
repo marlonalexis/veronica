@@ -131,7 +131,7 @@
 								<wait>
 									<time>10000</time>
 										<exec>
-											<postStart>psql -U postgres -f /tmp/veronica_schema.sql</postStart>
+											<postStart>psql -U postgres -c "\c veronica-db;" -f /tmp/veronica_schema.sql</postStart>
 										</exec>
 								</wait>
 							</run>
