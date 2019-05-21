@@ -92,6 +92,45 @@
 								<ports>
 									<port>8080:8080</port>
 								</ports>
+								<dependsOn>
+									<container>postgres</container>
+								</dependsOn>
+							</run>
+						</image>
+						<image>
+							<name>postgres</name>
+							<alias>postgresdb</alias>
+							<build>
+								<from>postgres:9.6</from>
+								<assembly>
+									<name>DB</name>
+									<inline>
+										<files>
+											<file>
+												<source>${project.basedir}/postgres/veronica_db.sql</source>
+												<fileMode>777</fileMode>
+											</file>
+										</files>
+									</inline>
+									<targetDir>/tmp</targetDir>
+									<mode>dir</mode>
+								</assembly>
+							</build>
+							<run>
+								<ports>
+									<port>5432:5432</port>
+								</ports>
+								<env>
+									<POSTGRES_DB>veronica-db</POSTGRES_DB>
+									<POSTGRES_USER>postgres</POSTGRES_USER>
+									<POSTGRES_PASSWORD>123456</POSTGRES_PASSWORD>
+								</env>
+								<wait>
+									<time>10000</time>
+									<exec>
+										<postStart>psql -U postgres -f /tmp/veronica_db.sql</postStart>
+									</exec>
+								</wait>
 							</run>
 						</image>
 					</images>
