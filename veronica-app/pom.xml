@@ -135,9 +135,9 @@
 								</env>
 								<wait>
 									<time>10000</time>
-<!-- 									<exec> -->
-<!-- 										<postStart>sh /tmp/veronica_db.sh</postStart> -->
-<!-- 									</exec> -->
+										<exec>
+											<postStart>psql -U postgres -f /tmp/veronica_schema.sql</postStart>
+										</exec>
 								</wait>
 							</run>
 						</image>
