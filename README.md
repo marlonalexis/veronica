@@ -16,9 +16,8 @@ Cotenidos
 - [Software requerido](#software-requerido)
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
-	- [Instalación de base de datos](#instalación-de-base-de-datos)
-	- [Instalación de dependencias](#instalación-de-dependencias)
-	- [Despliegue](#despliegue)
+	- [Despliegue en contenedor Docker](#despliegue-en-contenedor-Docker)
+	- [Despliegue estándar](#despliegue-estándar)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
 	- [Postman](#postman)
@@ -35,14 +34,35 @@ Cotenidos
 
 ## Instalación
 
-### Instalación de base de datos
+`Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto, ejecutar los comandos listados a continuación.
+```bash
+$ cd /veronica/additional_libs
+$ mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibAPI-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=api -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibCert-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=cert -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibOCSP-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=ocsp  -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibPolicy-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=policy -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibTrust-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=trust -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=tsa -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
+$ mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
+```
+### Despliegue en contenedor Docker
+Gracias a la integración con Fabric8, es posible ejecutar `Veronica` en un contenedor Docker. Para esto realizar los siguientes pasos.
+```bash
+$ cd /veronica
+$ mvn clean package install
+$ cd /veronica-app
+$ mvn docker:stop docker:build docker:start
+```
+### Despliegue estándar
+
 1. Abrir una consola o shell y crear la base de datos.
 ```bash
 $ psql -U postgres
 # CREATE DATABASE "veronica-db";
 # \q
 ```
-
 2. Crear la estructura de tablas ejecutando el script **veronica_schema.sql**.
 ```bash
 $ cd /veronica/sql
@@ -60,30 +80,12 @@ $ psql -U postgres veronica-db < veronica_data.sql
 encrypt.key = 8qxBjzCdQkwdpu
 ```
 
-5. Para modificar los atributos de conexión a la base de datos, dirigirse al archivo **/veronica/veronica-app/src/main/resources/application.properties**.
-
-### Instalación de dependencias
-1. `Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto, ejecutar los comandos listados a continuación.
-```bash
-$ cd /veronica/additional_libs
-$ mvn install:install-file -Dfile=jss-4.2.5.jar -DgroupId=org.mozilla -DartifactId=jss -Dversion=4.2.5 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibAPI-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=api -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibCert-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=cert -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibOCSP-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=ocsp  -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibPolicy-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=policy -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibTrust-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=trust -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=tsa -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
-$ mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
-```
-
-2. Instalar `Veronica`.
+5. Instalar `Veronica`.
 ```bash
 $ cd /veronica
 $ mvn clean install
 ```
 
-### Despliegue
 `Veronica` proporciona dos perfiles de despliegue: Desarrollo y Producción. Cada uno de estos perfiles posee un archivo de configuración situado en **/veronica/src/filters**. Para desplegar el proyecto con el perfil adecuado, indicar el ambiente como argumento de ejecución.
 
 `Desarrollo`
