@@ -156,7 +156,7 @@
 										<method>GET</method>
 										<status>200..399</status>
 									</http>
-									<time>100000</time>
+									<time>200000</time>
 								</wait>
 							</run>
 						</image>
@@ -190,7 +190,6 @@
 								</env>
 								<cmd>postgres -c encrypt.key=${veronica.db.key}</cmd>
 								<wait>
-									<time>20000</time>
 									<exec>
 										<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
 									</exec>
