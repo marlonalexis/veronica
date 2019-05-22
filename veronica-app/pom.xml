@@ -77,10 +77,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target</outputDirectory>
+                            <outputDirectory>../target</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${basedir}/../target</directory>
+                                    <directory>${basedir}/target</directory>
                                     <includes>
                                         <include>*.jar</include>
                                     </includes>
