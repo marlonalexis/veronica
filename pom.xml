@@ -160,7 +160,7 @@
 									<inline>
 										<files>
 											<file>
-												<source>${project.basedir}/src/postgres/veronica.sql</source>
+												<source>${project.basedir}/src/main/postgres/veronica.sql</source>
 												<fileMode>777</fileMode>
 											</file>
 										</files>
