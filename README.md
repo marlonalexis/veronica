@@ -111,6 +111,7 @@ http://localhost:8080/veronica/swagger-ui.html
 - V6: 2019-01-09, Integración con PostgreSQL.
 - V7: 2019-02-21, Soporte para Retenciones y Guías de remisión.
 - V8: 2019-05-18, Soporte para Notas de débito.
+- V9: 2019-05-22, Soporte para Docker con Fabric8.
 
 ## Autores
 
