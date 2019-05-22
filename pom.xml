@@ -191,6 +191,7 @@
 								<cmd>postgres -c encrypt.key=${veronica.db.key}</cmd>
 								<wait>
 									<exec>
+										<time>20000</time>
 										<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
 									</exec>
 								</wait>
