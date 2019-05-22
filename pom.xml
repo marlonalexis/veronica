@@ -156,7 +156,6 @@
 										<method>GET</method>
 										<status>200..399</status>
 									</http>
-									<time>75000</time>
 								</wait>
 							</run>
 						</image>
