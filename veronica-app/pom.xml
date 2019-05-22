@@ -10,6 +10,7 @@
 	<artifactId>veronica-app</artifactId>
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
+        <fabric8.profile>veronica-app</fabric8.profile>
 	</properties>
 	<dependencies>
 		<dependency>
