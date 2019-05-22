@@ -124,7 +124,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/dist</outputDirectory>
+							<outputDirectory>${basedir}/target</outputDirectory>
 							<resources>
 								<resource>
 									<directory>${basedir}/veronica-app/target</directory>
@@ -176,7 +176,7 @@
 							<name>${docker.image.prefix}/${veronica.name}</name>
 							<alias>${veronica.name}</alias>
 							<build>
-								<dockerFileDir>${project.basedir}/target/dist/</dockerFileDir>
+								<dockerFileDir>${project.basedir}/target/</dockerFileDir>
 								<assembly>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
