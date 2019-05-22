@@ -60,19 +60,13 @@ $ mvn docker:stop docker:build docker:start
 1. Abrir una consola o shell y crear la base de datos.
 ```bash
 $ psql -U postgres
-# CREATE DATABASE "veronica-db";
+# CREATE DATABASE "veronica";
 # \q
 ```
-2. Crear la estructura de tablas ejecutando el script **veronica_schema.sql**.
+2. Crear la estructura de tablas ejecutando el script **veronica.sql**.
 ```bash
-$ cd /veronica/sql
-$ psql -U postgres veronica-db < veronica_schema.sql
-```
-
-3. Ejecutar el script **veronica_data.sql** de carga inicial de datos.
-```bash
-$ cd /veronica/sql
-$ psql -U postgres veronica-db < veronica_data.sql
+$ cd /veronica/veronica-app/src/main/postgres
+$ psql -U postgres veronica < veronica.sql
 ```
 
 4. Agregar la siguiente entrada al final del archivo **postgresql.conf** y reiniciar el servidor de base de datos.
