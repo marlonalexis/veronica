@@ -134,7 +134,7 @@
 								</env>
                                 <cmd>postgres -c encrypt.key=8qxBjzCdQkwdpu</cmd>
 								<wait>
-									<time>10000</time>
+									<time>20000</time>
 										<exec>
 											<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
 										</exec>
