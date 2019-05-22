@@ -10,22 +10,33 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
 	</parent>
 
 	<properties>
-		<env>dev</env>
+		<env>docker</env>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<filter.src>${basedir}</filter.src>
 		<java.version>1.8</java.version>
 		<skipTests>true</skipTests>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.debug>false</maven.compiler.debug>
 		<maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
 		<maven-plugin-antrun.version>1.8</maven-plugin-antrun.version>
 		<maven-plugin-ant.version>2.4</maven-plugin-ant.version>
+
+		<version.docker.maven.plugin>0.30.0</version.docker.maven.plugin>
+
+		<docker.image.prefix>rolandopalermo</docker.image.prefix>
+
+		<veronica.name>veronica</veronica.name>
+		<veronica.db.user>postgres</veronica.db.user>
+		<veronica.db.password>123456</veronica.db.password>
+		<veronica.db.port>5432</veronica.db.port>
+		<veronica.db.container>veronica-db</veronica.db.container>
 	</properties>
 	<modules>
 		<module>veronica-model</module>
@@ -62,7 +73,6 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 	</dependencies>
-	<!-- Perfiles -->
 	<profiles>
 		<profile>
 			<id>development</id>
@@ -74,6 +84,12 @@
 			<id>production</id>
 			<properties>
 				<env>prd</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>docker</id>
+			<properties>
+				<env>docker</env>
 			</properties>
 		</profile>
 	</profiles>
@@ -95,6 +111,134 @@
 					<compilerArgs>
 						<arg>-parameters</arg>
 					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/dist</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/veronica-app/target</directory>
+									<includes>
+										<include>*.jar</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.5</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<scripts>
+						<script>file:///${project.basedir}/src/scripts/BuildDockerfile.groovy</script>
+					</scripts>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-all</artifactId>
+						<version>2.4.8</version>
+						<scope>runtime</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${version.docker.maven.plugin}</version>
+				<configuration>
+					<dockerHost>unix:///var/run/docker.sock</dockerHost>
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${veronica.name}</name>
+							<alias>${veronica.name}</alias>
+							<build>
+								<dockerFileDir>${project.basedir}/target/dist/</dockerFileDir>
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+							<run>
+								<ports>
+									<port>8080:8080</port>
+								</ports>
+								<links>
+									<link>${veronica.db.container}:${veronica.db.container}</link>
+								</links>
+								<env>
+									<SPRING_DATASOURCE_USERNAME>${veronica.db.user}</SPRING_DATASOURCE_USERNAME>
+									<SPRING_DATASOURCE_PASSWORD>${veronica.db.password}</SPRING_DATASOURCE_PASSWORD>
+								</env>
+								<dependsOn>
+									<container>${veronica.db.container}</container>
+								</dependsOn>
+							</run>
+						</image>
+						<image>
+							<name>${docker.image.prefix}/${veronica.db.container}</name>
+							<alias>${veronica.db.container}</alias>
+							<build>
+								<from>postgres:11.3</from>
+								<assembly>
+									<name>DB</name>
+									<inline>
+										<files>
+											<file>
+												<source>${project.basedir}/postgres/veronica.sql</source>
+												<fileMode>777</fileMode>
+											</file>
+										</files>
+									</inline>
+									<targetDir>/tmp</targetDir>
+									<mode>dir</mode>
+								</assembly>
+							</build>
+							<run>
+								<ports>
+									<port>${veronica.db.port}:${veronica.db.port}</port>
+								</ports>
+								<env>
+									<POSTGRES_USER>${veronica.db.user}</POSTGRES_USER>
+									<POSTGRES_PASSWORD>${veronica.db.password}</POSTGRES_PASSWORD>
+									<POSTGRES_DB>${veronica.name}</POSTGRES_DB>
+								</env>
+								<cmd>postgres -c encrypt.key=8qxBjzCdQkwdpu</cmd>
+								<wait>
+									<time>20000</time>
+									<exec>
+										<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
+									</exec>
+								</wait>
+							</run>
+						</image>
+					</images>
 				</configuration>
 			</plugin>
 		</plugins>

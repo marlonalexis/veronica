@@ -10,12 +10,6 @@
 	<artifactId>veronica-app</artifactId>
 	<properties>
 		<filter.src>${basedir}/..</filter.src>
-		<version.docker.maven.plugin>0.30.0</version.docker.maven.plugin>
-		<docker.image.prefix>rolandopalermo</docker.image.prefix>
-		<veronica.name>veronica</veronica.name>
-		<veronica.db.user>postgres</veronica.db.user>
-		<veronica.db.password>123456</veronica.db.password>
-        <veronica.db.container>veronica-db</veronica.db.container>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -70,105 +64,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>${version.docker.maven.plugin}</version>
-				<configuration>
-					<dockerHost>unix:///var/run/docker.sock</dockerHost>
-					<verbose>true</verbose>
-					<images>
-						<image>
-							<name>${docker.image.prefix}/${veronica.name}</name>
-							<alias>${veronica.name}</alias>
-							<build>
-								<dockerFileDir>${project.basedir}/target/dockerfile/</dockerFileDir>
-								<assembly>
-									<descriptorRef>artifact</descriptorRef>
-								</assembly>
-								<tags>
-									<tag>latest</tag>
-									<tag>${project.version}</tag>
-								</tags>
-							</build>
-							<run>
-								<ports>
-									<port>8080:8080</port>
-								</ports>
-								<links>
-									<link>${veronica.db.container}:${veronica.db.container}</link>
-								</links>
-								<dependsOn>
-									<container>${veronica.db.container}</container>
-								</dependsOn>
-							</run>
-						</image>
-						<image>
-							<name>${docker.image.prefix}/${veronica.db.container}</name>
-							<alias>${veronica.db.container}</alias>
-							<build>
-								<from>postgres:11.3</from>
-								<assembly>
-									<name>DB</name>
-									<inline>
-										<files>
-											<file>
-												<source>${project.basedir}/postgres/veronica.sql</source>
-												<fileMode>777</fileMode>
-											</file>
-										</files>
-									</inline>
-									<targetDir>/tmp</targetDir>
-									<mode>dir</mode>
-								</assembly>
-							</build>
-							<run>
-								<ports>
-									<port>5432:5432</port>
-								</ports>
-								<env>
-									<POSTGRES_USER>${veronica.db.user}</POSTGRES_USER>
-									<POSTGRES_PASSWORD>${veronica.db.password}</POSTGRES_PASSWORD>
-									<POSTGRES_DB>${veronica.name}</POSTGRES_DB>
-								</env>
-                                <cmd>postgres -c encrypt.key=8qxBjzCdQkwdpu</cmd>
-								<wait>
-									<time>20000</time>
-										<exec>
-											<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
-										</exec>
-								</wait>
-							</run>
-						</image>
-					</images>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<scripts>
-						<script>file:///${project.basedir}/src/main/scripts/BuildDockerfile.groovy</script>
-					</scripts>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-all</artifactId>
-						<version>2.4.8</version>
-						<scope>runtime</scope>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
