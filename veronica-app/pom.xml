@@ -132,10 +132,11 @@
 									<POSTGRES_PASSWORD>${veronica.db.password}</POSTGRES_PASSWORD>
 									<POSTGRES_DB>${veronica.name}</POSTGRES_DB>
 								</env>
+                                <cmd>postgres -c encrypt.key=8qxBjzCdQkwdpu</cmd>
 								<wait>
 									<time>10000</time>
 										<exec>
-											<postStart>psql -U ${veronica.db.user} -c encrypt.key=8qxBjzCdQkwdpu -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
+											<postStart>psql -U ${veronica.db.user} -d ${veronica.name} -1 -f /tmp/veronica.sql</postStart>
 										</exec>
 								</wait>
 							</run>
