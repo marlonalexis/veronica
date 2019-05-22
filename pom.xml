@@ -37,6 +37,8 @@
 		<veronica.db.password>123456</veronica.db.password>
 		<veronica.db.port>5432</veronica.db.port>
 		<veronica.db.container>veronica-db</veronica.db.container>
+		<veronica.db.key>8qxBjzCdQkwdpu</veronica.db.key>
+		<veronica.db.health>http://localhost:8080/veronica/api/health</veronica.db.health>
 	</properties>
 	<modules>
 		<module>veronica-model</module>
@@ -148,6 +150,14 @@
 								<dependsOn>
 									<container>${veronica.db.container}</container>
 								</dependsOn>
+								<wait>
+									<http>
+										<url>${veronica.db.health}</url>
+										<method>GET</method>
+										<status>200..399</status>
+									</http>
+									<time>75000</time>
+								</wait>
 							</run>
 						</image>
 						<image>
@@ -178,7 +188,7 @@
 									<POSTGRES_PASSWORD>${veronica.db.password}</POSTGRES_PASSWORD>
 									<POSTGRES_DB>${veronica.name}</POSTGRES_DB>
 								</env>
-								<cmd>postgres -c encrypt.key=8qxBjzCdQkwdpu</cmd>
+								<cmd>postgres -c encrypt.key=${veronica.db.key}</cmd>
 								<wait>
 									<time>20000</time>
 									<exec>

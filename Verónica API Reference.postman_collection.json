@@ -874,6 +874,214 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Notas de Débito",
+					"description": "",
+					"item": [
+						{
+							"name": "Crear nota de débito",
+							"request": {
+								"url": "http://localhost:8080/veronica/api/v1.0/notas-debito",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"id\":\"comprobante\",\r\n   \"version\":\"1.0.0\",\r\n\t\"infoTributaria\":{\r\n      \"ambiente\":\"1\",\r\n      \"tipoEmision\":\"1\",\r\n      \"razonSocial\":\"PRUEBA\",\r\n      \"nombreComercial\":\"PRUEBA 2\",\r\n      \"ruc\":\"1760013210001\",\r\n      \"codDoc\":\"05\",\r\n      \"estab\":\"001\",\r\n      \"ptoEmi\":\"001\",\r\n      \"secuencial\":\"000000001\",\r\n      \"dirMatriz\":\"SALINAS\"\r\n   },\r\n   \"infoNotaDebito\":{\r\n   \t  \"fechaEmision\":\"18/05/2019\",\r\n   \t  \"tipoIdentificacionComprador\":\"04\",\r\n   \t  \"razonSocialComprador\":\"PRUEBA SRI\",\r\n   \t  \"identificacionComprador\":\"1713328506001\",\r\n   \t  \"obligadoContabilidad\":\"SI\",\r\n      \"codDocModificado\":\"01\",\r\n      \"numDocModificado\":\"001-001-112312315\",\r\n      \"fechaEmisionDocSustento\":\"18/05/2019\",\r\n      \"contribuyenteEspecial\":\"12345\",\r\n      \"dirEstablecimiento\":\"PAEZ\",\r\n      \"totalSinImpuestos\":50.0,\r\n      \"impuesto\":[\r\n         {\r\n         \t\"codigo\":\"2\",\r\n         \t\"codigoPorcentaje\":\"0\",\r\n         \t\"tarifa\":0,\r\n            \"baseImponible\":0,\r\n            \"valor\":0.00\r\n         }\r\n      ],\r\n      \"valorTotal\":370.08\r\n   },\r\n   \"motivo\":[\r\n      {\r\n         \"razon\":\"AJUSTE DE PRECIOS\",\r\n         \"valor\":370.08\r\n      }\r\n   ],\r\n   \"campoAdicional\":[\r\n      {\r\n         \"nombre\":\"Direccion\",\r\n         \"value\":\"AMAZONAS S/N ROCA\"\r\n      },\r\n      {\r\n         \"nombre\":\"Email\",\r\n         \"value\":\"prueba@sri.gob.ec\"\r\n      }\r\n   ]\r\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Enviar nota de débito al SRI",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/notas-debito/:clave-acceso/enviar",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"notas-debito",
+										":clave-acceso",
+										"enviar"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Autorizar nota de débito",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/notas-debito/:clave-acceso/autorizar",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"notas-debito",
+										":clave-acceso",
+										"autorizar"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar nota de débito",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/notas-debito/:clave-acceso",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"notas-debito",
+										":clave-acceso"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener archivo XML de nota de débito",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/notas-debito/:clave-acceso/archivos/xml",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"notas-debito",
+										":clave-acceso",
+										"archivos",
+										"xml"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener archivo PDF de nota de débito",
+							"request": {
+								"url": {
+									"raw": "http://localhost:8080/veronica/api/v1.0/notas-debito/:clave-acceso/archivos/pdf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"veronica",
+										"api",
+										"v1.0",
+										"notas-debito",
+										":clave-acceso",
+										"archivos",
+										"pdf"
+									],
+									"query": [],
+									"variable": [
+										{
+											"key": "clave-acceso",
+											"value": "{{clave-acceso}}"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		},
