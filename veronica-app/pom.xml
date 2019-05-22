@@ -110,7 +110,7 @@
 									<inline>
 										<files>
 											<file>
-												<source>${project.basedir}/postgres/veronica_schema.sql</source>
+												<source>${project.basedir}/postgres/veronica.sql</source>
 												<fileMode>777</fileMode>
 											</file>
 										</files>
@@ -126,12 +126,12 @@
 								<env>
 									<POSTGRES_USER>postgres</POSTGRES_USER>
 									<POSTGRES_PASSWORD>123456</POSTGRES_PASSWORD>
-									<POSTGRES_DB>veronicadb</POSTGRES_DB>
+									<POSTGRES_DB>veronica_db</POSTGRES_DB>
 								</env>
 								<wait>
 									<time>10000</time>
 										<exec>
-											<postStart>psql -U postgres -d veronicadb -1 -f /tmp/veronica_schema.sql</postStart>
+											<postStart>psql -U postgres -d veronica_db -1 -f /tmp/veronica.sql</postStart>
 										</exec>
 								</wait>
 							</run>
