@@ -236,7 +236,7 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 		EnvioComprobantesProxy proxy;
 		RespuestaSolicitudDTO respuestaSolicitudDTO = null;
 		if (logger.isDebugEnabled()) {
-			logger.debug(String.format("Invocando al WSDL: %s", wsdlRecepcion));
+			logger.debug(String.format("Invocando al WSDL de recepción: %s", wsdlRecepcion));
 		}
 		try {
 			proxy = new EnvioComprobantesProxy(wsdlRecepcion);
@@ -252,6 +252,9 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 
 	private RespuestaComprobanteDTO applyReceipt(String claveAcceso) throws ResourceNotFoundException, VeronicaException {
 		AutorizacionComprobanteProxy proxy;
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("Invocando al WSDL de autorización: %s", wsdlAutorizacion));
+		}
 		try {
 			proxy = new AutorizacionComprobanteProxy(wsdlAutorizacion);
 		} catch (MalformedURLException e) {
