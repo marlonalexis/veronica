@@ -16,7 +16,7 @@ import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_AN
 @RequestMapping(value = "/api/health")
 public class HealthController {
 
-    @ApiOperation(value = "Verifica el estado de la aplicación web")
+    @ApiOperation(value = "Verifica el estado de la aplicación web para CI")
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> checkHealth() {
         return new ResponseEntity<>("", HttpStatus.OK);
