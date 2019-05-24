@@ -12,7 +12,7 @@ Todo comprobante electrónico gestionado a través de `Veronica` manejará un ci
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_ciclo_vida.png" width="500">
 </p>
 
-Las stack de herramientas utilizadas para la implementación de `Veronica` es el siguiente:
+Los frameworks y tecnologías utilizados para la implementación de `Veronica` es el siguiente:
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/rolandopalermo/veronica/master/static/veronica_stack.jpg" width="500">
