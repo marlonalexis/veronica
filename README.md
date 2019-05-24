@@ -17,7 +17,7 @@ Cotenidos
 - [Software requerido](#software-requerido)
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
-	- [Despliegue estándar](#despliegue-estándar)
+	- [Despliegue estándar](#coffee-despliegue-estándar)
 	- [Despliegue en contenedor Docker](#whale-despliegue-en-contenedor-docker)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
@@ -49,7 +49,7 @@ $ mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache
 ## Instalación
 `Veronica` puede ser ejecutado como una aplicación Spring-Boot, la cual requiere la instalación previa de PostgreSQL, o también puede ser ejecutada como un contenedor Docker.
 
-### Despliegue estándar
+### :coffee: Despliegue estándar
 
 1. Abrir una consola o shell y crear la base de datos.
 ```bash
