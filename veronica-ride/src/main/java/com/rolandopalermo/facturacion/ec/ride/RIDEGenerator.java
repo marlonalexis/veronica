@@ -105,9 +105,12 @@ public class RIDEGenerator {
 			sbTemplate.append(rootElement);
 			sbTemplate.append(".jrxml");
 			String template = sbTemplate.toString();
-			InputStream employeeReportStream = RIDEGenerator.class.getResourceAsStream(template);
+			if (logger.isDebugEnabled()) {
+				logger.debug(String.format("Generando PDF con plantilla: %s", template));
+			}
+			InputStream reportStream = RIDEGenerator.class.getResourceAsStream(template);
 			JasperReport jasperReport;
-			jasperReport = JasperCompileManager.compileReport(employeeReportStream);
+			jasperReport = JasperCompileManager.compileReport(reportStream);
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("numeroAutorizacion", numeroAutorizacion);
 			parameters.put("fechaAutorizacion", fechaAutorizacion);
