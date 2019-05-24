@@ -18,7 +18,7 @@ Cotenidos
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
 	- [Despliegue estándar](#despliegue-estándar)
-	- [Despliegue en contenedor Docker](#despliegue-en-contenedor-Docker)
+	- [Despliegue en contenedor Docker](#whale-despliegue-en-contenedor-docker)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
 	- [Postman](#postman)
