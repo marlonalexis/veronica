@@ -88,7 +88,7 @@ $ cd /veronica/veronica-app
 $ mvn spring-boot:run -Pproduction
 ```
 ### :whale: Despliegue en contenedor Docker 
-Gracias a la integración con Fabric8, es posible ejecutar `Veronica` en un contenedor Docker. Para esto realizar los siguientes pasos.
+Gracias a la integración con Fabric8, es posible ejecutar `Veronica` en un contenedor Docker. Para esto, realizar los siguientes pasos.
 ```bash
 $ cd /veronica
 $ mvn clean package install
