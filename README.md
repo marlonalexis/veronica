@@ -16,8 +16,8 @@ Cotenidos
 - [Software requerido](#software-requerido)
 - [Pasos previos](#pasos-previos)
 - [Instalación](#instalación)
-	- [Despliegue en contenedor Docker](#despliegue-en-contenedor-Docker)
 	- [Despliegue estándar](#despliegue-estándar)
+	- [Despliegue en contenedor Docker](#despliegue-en-contenedor-Docker)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
 	- [Postman](#postman)
@@ -32,8 +32,6 @@ Cotenidos
 ## Pasos previos
 - [Instalar y configurar Maven](https://www.mkyong.com/maven/how-to-install-maven-in-windows/)
 
-## Instalación
-
 `Veronica` posee una lista de dependencias que no se encuentran disponibles en el repositorio remoto de Maven por lo que se tendrá que hacer la instalación de forma manual. Para esto, ejecutar los comandos listados a continuación.
 ```bash
 $ cd /veronica/additional_libs
@@ -47,14 +45,9 @@ $ mvn install:install-file -Dfile=MITyCLibTSA-1.0.4.jar -DgroupId=es.mityc.javas
 $ mvn install:install-file -Dfile=MITyCLibXADES-1.0.4.jar -DgroupId=es.mityc.javasign -DartifactId=xades -Dversion=1.0.4 -Dpackaging=jar
 $ mvn install:install-file -Dfile=xmlsec-1.4.2-ADSI-1.0.jar -DgroupId=org.apache.xmlsec-adsi -DartifactId=xmlsec-adsi -Dversion=1.4.2 -Dpackaging=jar
 ```
-### Despliegue en contenedor Docker
-Gracias a la integración con Fabric8, es posible ejecutar `Veronica` en un contenedor Docker. Para esto realizar los siguientes pasos.
-```bash
-$ cd /veronica
-$ mvn clean package install
-$ cd /veronica-app
-$ mvn docker:stop docker:build docker:start
-```
+## Instalación
+`Veronica` puede ser ejecutado como una aplicación Spring-Boot, la cual requiere la instalación previa de PostgreSQL, o también puede ser ejecutada como un contenedor Docker.
+
 ### Despliegue estándar
 
 1. Abrir una consola o shell y crear la base de datos.
@@ -92,6 +85,14 @@ $ mvn spring-boot:run -Pdevelopment
 ```bash
 $ cd /veronica/veronica-app
 $ mvn spring-boot:run -Pproduction
+```
+### Despliegue en contenedor Docker
+Gracias a la integración con Fabric8, es posible ejecutar `Veronica` en un contenedor Docker. Para esto realizar los siguientes pasos.
+```bash
+$ cd /veronica
+$ mvn clean package install
+$ cd /veronica-app
+$ mvn docker:stop docker:build docker:start
 ```
 
 ## Documentación
