@@ -112,6 +112,9 @@ public abstract class GenericSRIServiceImpl<DTO extends ComprobanteDTO, MODEL ex
 			repository.save(domainObject);
 			comprobanteIdDTO.setClaveAcceso(comprobante.getInfoTributaria().getClaveAcceso());
 			return comprobanteIdDTO;
+		} catch (VeronicaException | ResourceNotFoundException e) {
+			logger.error("create", e);
+			throw e;
 		} catch (Exception e) {
 			logger.error("create", e);
 			throw new VeronicaException("Ocurrió un error interno al intentar crear el comprobante electrónico.");

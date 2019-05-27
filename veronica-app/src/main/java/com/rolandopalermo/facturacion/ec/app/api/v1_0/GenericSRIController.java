@@ -1,7 +1,5 @@
 package com.rolandopalermo.facturacion.ec.app.api.v1_0;
 
-import com.rolandopalermo.facturacion.ec.common.exception.InternalServerException;
-import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
@@ -33,42 +31,30 @@ public class GenericSRIController<DTO extends ComprobanteDTO, MODEL extends Comp
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> create(@Valid @RequestBody DTO dto) {
-        try {
-            VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-            ComprobanteIdDTO facturaIdDTO;
-            facturaIdDTO = service.create(dto);
-            response.setSuccess(true);
-            response.setResult(facturaIdDTO);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch (VeronicaException e) {
-            throw new InternalServerException(e.getMessage());
-        }
+        VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+        ComprobanteIdDTO facturaIdDTO;
+        facturaIdDTO = service.create(dto);
+        response.setSuccess(true);
+        response.setResult(facturaIdDTO);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "{claveAcceso}/enviar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> post(@Valid @PathVariable String claveAcceso) {
-        try {
-            VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-            RespuestaSolicitudDTO respuestaSolicitudDTO = service.post(claveAcceso);
-            response.setSuccess(true);
-            response.setResult(respuestaSolicitudDTO);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (VeronicaException e) {
-            throw new InternalServerException(e.getMessage());
-        }
+        VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+        RespuestaSolicitudDTO respuestaSolicitudDTO = service.post(claveAcceso);
+        response.setSuccess(true);
+        response.setResult(respuestaSolicitudDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping(value = "{claveAcceso}/autorizar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> apply(@Valid @PathVariable String claveAcceso) {
-        try {
-            VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-            RespuestaComprobanteDTO respuestaComprobanteDTO = service.apply(claveAcceso);
-            response.setSuccess(true);
-            response.setResult(respuestaComprobanteDTO);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } catch (VeronicaException e) {
-            throw new InternalServerException(e.getMessage());
-        }
+        VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+        RespuestaComprobanteDTO respuestaComprobanteDTO = service.apply(claveAcceso);
+        response.setSuccess(true);
+        response.setResult(respuestaComprobanteDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{claveAcceso}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -81,24 +67,20 @@ public class GenericSRIController<DTO extends ComprobanteDTO, MODEL extends Comp
 
     @GetMapping(value = "{claveAcceso}/archivos/pdf")
     public ResponseEntity<Object> generateRIDE(@Valid @PathVariable("claveAcceso") String claveAcceso) {
-        try {
-            VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
-            byte[] pdfContent = service.getPDF(claveAcceso);
-            response.setSuccess(true);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("content-disposition", "inline; filename=" + claveAcceso + ".pdf");
-            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            headers.add("Pragma", "no-cache");
-            headers.add("Expires", "0");
-            return ResponseEntity.ok().headers(headers).contentLength(pdfContent.length)
-                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(new InputStreamResource(new ByteArrayInputStream(pdfContent)));
-        } catch (VeronicaException e) {
-            throw new InternalServerException(e.getMessage());
-        }
+        VeronicaResponseDTO<Object> response = new VeronicaResponseDTO<>();
+        byte[] pdfContent = service.getPDF(claveAcceso);
+        response.setSuccess(true);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-disposition", "inline; filename=" + claveAcceso + ".pdf");
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        return ResponseEntity.ok().headers(headers).contentLength(pdfContent.length)
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(new ByteArrayInputStream(pdfContent)));
     }
 
-    @GetMapping(value = "{claveAcceso}/archivos/xml", produces = { MediaType.APPLICATION_JSON_VALUE,  MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(value = "{claveAcceso}/archivos/xml", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Object> getXML(@Valid @PathVariable("claveAcceso") String claveAcceso) {
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, "application/xml; charset=UTF-8");

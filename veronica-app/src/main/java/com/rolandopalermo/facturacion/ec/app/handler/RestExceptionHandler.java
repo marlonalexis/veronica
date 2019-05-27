@@ -6,6 +6,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.exception.ConstraintViolationException;
@@ -27,7 +28,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.rolandopalermo.facturacion.ec.common.exception.InternalServerException;
 import com.rolandopalermo.facturacion.ec.common.exception.ResourceNotFoundException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
 
@@ -51,13 +51,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param ex
 	 * @param request
 	 * @return
 	 */
-	@ExceptionHandler({ InternalServerException.class })
-	public ResponseEntity<?> handleInternalServerException(InternalServerException ex, HttpServletRequest request) {
+	@ExceptionHandler({ VeronicaException.class})
+	public ResponseEntity<?> handleVeronicaException(VeronicaException ex, HttpServletRequest request) {
 		return buildResponseEntity(new ApiError(INTERNAL_SERVER_ERROR, ex.getMessage(), ex));
 	}
 
