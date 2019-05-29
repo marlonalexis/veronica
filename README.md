@@ -19,6 +19,8 @@ Cotenidos
 - [Instalación](#instalación)
 	- [Despliegue estándar](#coffee-despliegue-estándar)
 	- [Despliegue con Docker](#whale-despliegue-con-docker)
+- [Seguridad](#seguridad)
+	- [Obtención de tokens OAuth2.0](#obtención-de-tokens-oauth20)
 - [Documentación](#documentación)
 	- [Swagger](#swagger)
 	- [Postman](#postman)
@@ -119,6 +121,7 @@ curl http://localhost:8080/veronica/api/v1.0/facturas/22042019011091701991001200
 ## Documentación
 ### Swagger
 Para acceder, debemos utilizar los usuarios indicados en la sección anterior.
+
 http://localhost:8080/veronica/swagger-ui.html
 
 ### Postman
