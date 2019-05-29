@@ -114,6 +114,7 @@ http://localhost:8080/veronica/swagger-ui.html
 - V7: 2019-02-21, Soporte para Retenciones y Guías de remisión.
 - V8: 2019-05-18, Soporte para Notas de débito.
 - V9: 2019-05-22, Soporte para Docker con Fabric8.
+- V10: 2019-05-28, Seguridad con OAuth2.0.
 
 ## Autores
 
