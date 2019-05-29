@@ -362,6 +362,42 @@ CREATE SEQUENCE public.invoice_seq
 ALTER TABLE public.invoice_seq OWNER TO postgres;
 
 --
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.user (
+  user_id integer NOT NULL,
+  username character varying(50) NOT NULL,
+  password character varying(300) NOT NULL,
+  role character varying(50) NOT NULL,
+  is_active boolean DEFAULT false
+);
+
+
+ALTER TABLE public.user OWNER TO postgres;
+
+--
+-- Name: user_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_user_id_seq
+  AS integer
+  START WITH 1
+  INCREMENT BY 1
+  NO MINVALUE
+  NO MAXVALUE
+  CACHE 1;
+
+
+ALTER TABLE public.user_user_id_seq OWNER TO postgres;
+
+--
+-- Name: user_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_user_id_seq OWNED BY public.user.user_id;
+
+--
 -- Name: payment_method; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -573,6 +609,11 @@ ALTER TABLE ONLY public.internal_status ALTER COLUMN internal_status_id SET DEFA
 
 ALTER TABLE ONLY public.invoice ALTER COLUMN invoice_id SET DEFAULT nextval('public.invoice_invoice_id_seq'::regclass);
 
+--
+-- Name: user user_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user ALTER COLUMN user_id SET DEFAULT nextval('public.user_user_id_seq'::regclass);
 
 --
 -- Name: payment_method payment_method_id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -665,6 +706,12 @@ ALTER TABLE ONLY public.invoice
 ALTER TABLE ONLY public.invoice
     ADD CONSTRAINT invoice_pkey PRIMARY KEY (invoice_id);
 
+--
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user
+  ADD CONSTRAINT user_pkey PRIMARY KEY (user_id);
 
 --
 -- Name: payment_method payment_method_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -738,6 +785,57 @@ ALTER TABLE ONLY public.withholding
     ADD CONSTRAINT withholding_internal_status_id_fkey FOREIGN KEY (internal_status_id) REFERENCES public.internal_status(internal_status_id);
 
 
+create table oauth_client_details (
+    client_id VARCHAR(256) PRIMARY KEY,
+    resource_ids VARCHAR(256),
+    client_secret VARCHAR(256),
+    scope VARCHAR(256),
+    authorized_grant_types VARCHAR(256),
+    web_server_redirect_uri VARCHAR(256),
+    authorities VARCHAR(256),
+    access_token_validity INTEGER,
+    refresh_token_validity INTEGER,
+    additional_information VARCHAR(4096),
+    autoapprove VARCHAR(256)
+);
+
+create table oauth_client_token (
+    token_id VARCHAR(256),
+    token bytea,
+    authentication_id VARCHAR(256),
+    user_name VARCHAR(256),
+    client_id VARCHAR(256)
+);
+
+create table oauth_access_token (
+    token_id VARCHAR(256),
+    token bytea,
+    authentication_id VARCHAR(256),
+    user_name VARCHAR(256),
+    client_id VARCHAR(256),
+    authentication bytea,
+    refresh_token VARCHAR(256)
+);
+
+create table oauth_refresh_token (
+    token_id VARCHAR(256),
+    token bytea,
+    authentication bytea
+);
+
+create table oauth_code (
+    code VARCHAR(256), authentication bytea
+);
+
+create table oauth_approvals (
+    userId VARCHAR(256),
+    clientId VARCHAR(256),
+    scope VARCHAR(256),
+    status VARCHAR(10),
+    expiresAt TIMESTAMP,
+    lastModifiedAt TIMESTAMP
+);
+
 --
 -- PostgreSQL database dump complete
 --
@@ -778,3 +876,7 @@ INSERT INTO PUBLIC.tax_type (code, description) VALUES
 ('2', 'IVA'),
 ('3', 'ICE'),
 ('6', 'IMPUESTO A LA SALIDA DE DIVISAS');
+
+INSERT INTO PUBLIC.user (user_id, username, password, role, is_active) VALUES
+('1', 'admin', '$2a$10$AS6cJ5iHRVTWEmMxoU8QdOFJzmjilfV1DX87X58OMG6KXlMVo04Ky', 'ROLE_ADMIN', true),
+('2', 'user', '$2a$10$LVYIXXv82.2M1I8Y8g0FIO3sGmwcOLzyYDnEGdOXklP9aRh9nOta.', 'ROLE_USER', true);

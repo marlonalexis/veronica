@@ -8,16 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
-import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.URI_PUBLIC;
 
 @RestController
-@RequestMapping(value = "/api/health")
+@RequestMapping(value = URI_PUBLIC)
 public class HealthController {
 
     @ApiOperation(value = "Verifica el estado de la aplicación web para CI")
-    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "health", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> checkHealth() {
         return new ResponseEntity<>("", HttpStatus.OK);
     }

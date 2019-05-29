@@ -3,7 +3,7 @@ package com.rolandopalermo.facturacion.ec.service.v1_0;
 import com.rolandopalermo.facturacion.ec.common.exception.ResourceNotFoundException;
 import com.rolandopalermo.facturacion.ec.common.exception.VeronicaException;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteIdDTO;
+import com.rolandopalermo.facturacion.ec.dto.ComprobanteIdDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ListaComprobantesDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;

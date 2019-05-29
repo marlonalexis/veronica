@@ -1,8 +1,8 @@
 package com.rolandopalermo.facturacion.ec.app.api.v1_0;
 
 import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.ComprobanteIdDTO;
-import com.rolandopalermo.facturacion.ec.dto.v1_0.VeronicaResponseDTO;
+import com.rolandopalermo.facturacion.ec.dto.ComprobanteIdDTO;
+import com.rolandopalermo.facturacion.ec.dto.VeronicaResponseDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaComprobanteDTO;
 import com.rolandopalermo.facturacion.ec.dto.v1_0.sri.RespuestaSolicitudDTO;
 import com.rolandopalermo.facturacion.ec.modelo.Comprobante;

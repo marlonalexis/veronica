@@ -15,44 +15,45 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 import static com.rolandopalermo.facturacion.ec.common.util.Constants.API_DOC_ANEXO_1;
+import static com.rolandopalermo.facturacion.ec.common.util.Constants.URI_API_V1_INVOICE;
 
 @RestController
-@RequestMapping(value = "/api/v1.0/facturas")
+@RequestMapping(value = {URI_API_V1_INVOICE})
 @Api(description = "Gestiona el ciclo de vida de una factura electrónica")
 public class InvoiceController extends GenericSRIController<FacturaDTO, Factura, Invoice> {
 
-	@ApiOperation(value = "Crea una factura electrónica y la almacena en base de datos")
-	public ResponseEntity<Object> createInvoice(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody FacturaDTO facturaDTO) {
-		return super.create(facturaDTO);
-	}
+    @ApiOperation(value = "Crea una factura electrónica y la almacena en base de datos")
+    public ResponseEntity<Object> createInvoice(@Valid @ApiParam(value = API_DOC_ANEXO_1, required = true) @RequestBody FacturaDTO facturaDTO) {
+        return super.create(facturaDTO);
+    }
 
-	@ApiOperation(value = "Envía una factura electrónica al SRI y actualiza su estado en base de datos")
-	public ResponseEntity<Object> postInvoice(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
-		return super.post(claveAcceso);
-	}
+    @ApiOperation(value = "Envía una factura electrónica al SRI y actualiza su estado en base de datos")
+    public ResponseEntity<Object> postInvoice(@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+        return super.post(claveAcceso);
+    }
 
-	@ApiOperation(value = "Autoriza una factura electrónica y actualiza su estado en base de datos")
-	public ResponseEntity<Object> applyInvoice(
-			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
-		return super.apply(claveAcceso);
-	}
+    @ApiOperation(value = "Autoriza una factura electrónica y actualiza su estado en base de datos")
+    public ResponseEntity<Object> applyInvoice(
+            @Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+        return super.apply(claveAcceso);
+    }
 
-	@ApiOperation(value = "Elimina una factura de la base de datos")
-	public ResponseEntity<Object> deleteInvoice(
-			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
-		return super.delete(claveAcceso);
-	}
+    @ApiOperation(value = "Elimina una factura de la base de datos")
+    public ResponseEntity<Object> deleteInvoice(
+            @Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable String claveAcceso) {
+        return super.delete(claveAcceso);
+    }
 
-	@ApiOperation(value = "Retorna la representación PDF de una factura electrónica")
-	public ResponseEntity<Object> generateRIDE(
-			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
-		return super.generateRIDE(claveAcceso);
-	}
+    @ApiOperation(value = "Retorna la representación PDF de una factura electrónica")
+    public ResponseEntity<Object> generateRIDE(
+            @Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
+        return super.generateRIDE(claveAcceso);
+    }
 
-	@ApiOperation(value = "Retorna la representación XML de una factura electrónica")
-	public ResponseEntity<Object> getXML(
-			@Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
-		return super.getXML(claveAcceso);
-	}
+    @ApiOperation(value = "Retorna la representación XML de una factura electrónica")
+    public ResponseEntity<Object> getXML(
+            @Valid @ApiParam(value = "Clave de acceso del comprobante electrónico", required = true) @PathVariable("claveAcceso") String claveAcceso) {
+        return super.getXML(claveAcceso);
+    }
 
 }

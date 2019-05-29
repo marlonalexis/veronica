@@ -1,4 +1,4 @@
-package com.rolandopalermo.facturacion.ec.dto.v1_0;
+package com.rolandopalermo.facturacion.ec.dto;
 
 import javax.validation.constraints.NotNull;
 

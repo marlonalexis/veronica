@@ -9,7 +9,6 @@ import com.rolandopalermo.facturacion.ec.common.converter.JaxbConverter;
 @Configuration
 public class JaxbConfig {
 
-	//Marshallers
 	@Bean(name = "invoiceJaxbConverter")
 	public JaxbConverter getInvoiceJaxbConverter() {
 		JaxbConverter converter = new JaxbConverter();
@@ -58,7 +57,6 @@ public class JaxbConfig {
 		return converter;
 	}
 
-	//SRI response types
 	@Bean
 	public Jaxb2Marshaller respuestaComprobanteJaxbContextBean() {
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
@@ -66,7 +64,6 @@ public class JaxbConfig {
 		return marshaller;
 	}
 
-	//SRI document types
 	@Bean
 	public Jaxb2Marshaller invoiceJaxbContextBean() {
 		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
