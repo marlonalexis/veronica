@@ -145,7 +145,7 @@ http://localhost:8080/veronica/swagger-ui.html
 ## Autor
 | [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) |
 |-|
-| [https://github.com/rolandopalermo](https://github.com/rolandopalermo)<br>[https://twitter.com/rolandopalermo](https://twitter.com/rolandopalermo) |
+| [@RolandoPalermo](https://github.com/rolandopalermo) |
 
 ## Colaboradores
 
