@@ -143,10 +143,9 @@ http://localhost:8080/veronica/swagger-ui.html
 - V10: 2019-05-28, Seguridad con OAuth2.0.
 
 ## Autor
-
 | [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) |
 |-|
-| [@RolandoPalermo](https://github.com/rolandopalermo) |
+| [https://github.com/rolandopalermo](https://github.com/rolandopalermo)<br>[https://twitter.com/rolandopalermo](https://twitter.com/rolandopalermo) |
 
 ## Colaboradores
 
@@ -155,3 +154,4 @@ http://localhost:8080/veronica/swagger-ui.html
 | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) |
 
 ## Patrocinadores
+Apoya este proyecto haciéndote patrocinador. Tu logotipo aparecerá aquí con un enlace a su sitio web.
