@@ -25,7 +25,9 @@ Cotenidos
 	- [Swagger](#swagger)
 	- [Postman](#postman)
 - [Bitácora](#bitácora)
-- [Autores](#autores)
+- [Autor](#autor)
+- [Colaboradores](#colaboradores)
+- [Patrocinadores](#patrocinadores)
 
 ## Software requerido
 - JDK 1.8.0_121
@@ -140,8 +142,16 @@ http://localhost:8080/veronica/swagger-ui.html
 - V9: 2019-05-22, Soporte para Docker con Fabric8.
 - V10: 2019-05-28, Seguridad con OAuth2.0.
 
-## Autores
+## Autor
 
-| [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) | [![](https://avatars2.githubusercontent.com/u/24358710?s=80&v=4)](https://github.com/XaviMontero) | [![](https://avatars0.githubusercontent.com/u/3452663?s=80&v=4)](https://github.com/XaviMontero) |  [![](https://avatars0.githubusercontent.com/u/211490?s=80&v=4)](https://github.com/vperilla) 
-|-|-|-|-|
-| [@RolandoPalermo](https://github.com/rolandopalermo) | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) |
+| [![](https://avatars1.githubusercontent.com/u/11875482?v=4&s=80)](https://github.com/rolandopalermo) |
+|-|
+| [@RolandoPalermo](https://github.com/rolandopalermo) |
+
+## Colaboradores
+
+| [![](https://avatars2.githubusercontent.com/u/24358710?s=80&v=4)](https://github.com/XaviMontero) | [![](https://avatars0.githubusercontent.com/u/3452663?s=80&v=4)](https://github.com/XaviMontero) |  [![](https://avatars0.githubusercontent.com/u/211490?s=80&v=4)](https://github.com/vperilla) 
+|-|-|-|
+| [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) |
+
+## Patrocinadores
