@@ -785,7 +785,7 @@ ALTER TABLE ONLY public.withholding
     ADD CONSTRAINT withholding_internal_status_id_fkey FOREIGN KEY (internal_status_id) REFERENCES public.internal_status(internal_status_id);
 
 
-create table oauth_client_details (
+create table public.oauth_client_details (
     client_id VARCHAR(256) PRIMARY KEY,
     resource_ids VARCHAR(256),
     client_secret VARCHAR(256),
@@ -799,7 +799,7 @@ create table oauth_client_details (
     autoapprove VARCHAR(256)
 );
 
-create table oauth_client_token (
+create table public.oauth_client_token (
     token_id VARCHAR(256),
     token bytea,
     authentication_id VARCHAR(256),
@@ -807,7 +807,7 @@ create table oauth_client_token (
     client_id VARCHAR(256)
 );
 
-create table oauth_access_token (
+create table public.oauth_access_token (
     token_id VARCHAR(256),
     token bytea,
     authentication_id VARCHAR(256),
@@ -817,17 +817,17 @@ create table oauth_access_token (
     refresh_token VARCHAR(256)
 );
 
-create table oauth_refresh_token (
+create table public.oauth_refresh_token (
     token_id VARCHAR(256),
     token bytea,
     authentication bytea
 );
 
-create table oauth_code (
+create table public.oauth_code (
     code VARCHAR(256), authentication bytea
 );
 
-create table oauth_approvals (
+create table public.oauth_approvals (
     userId VARCHAR(256),
     clientId VARCHAR(256),
     scope VARCHAR(256),
