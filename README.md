@@ -154,4 +154,4 @@ http://localhost:8080/veronica/swagger-ui.html
 | [@XaviMontero](https://github.com/XaviMontero) | [@Japstones](https://github.com/japstones) | [@vperilla](https://github.com/vperilla) |
 
 ## Patrocinadores
-Apoya este proyecto haciéndote patrocinador. Tu logotipo aparecerá aquí con un enlace a tu sitio web. [[Conviértete en un patrocinador](rolando.roc@gmail.com)]
+Apoya este proyecto haciéndote patrocinador. Tu logotipo aparecerá aquí con un enlace a tu sitio web. [[Conviértete en un patrocinador](mailto:rolando.roc@gmail.com)]
